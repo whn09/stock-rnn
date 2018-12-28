@@ -17,8 +17,8 @@ RANDOM_SLEEP_TIMES = (1, 5)
 
 # This repo "github.com/datasets/s-and-p-500-companies" has some other information about
 # S & P 500 companies.
-SP500_LIST_URL = "https://raw.githubusercontent.com/datasets/s-and-p-500-companies/master/data/constituents-financials.csv"
-SP500_LIST_PATH = os.path.join(DATA_DIR, "constituents-financials.csv")
+SP500_LIST_URL = "https://pkgstore.datahub.io/core/s-and-p-500-companies-financials/constituents-financials_csv/data/8e571d9a5791c6355cd5ef8455d56920/constituents-financials_csv.csv"
+SP500_LIST_PATH = os.path.join(DATA_DIR, "constituents-financials_csv.csv")
 
 
 def _download_sp500_list():
@@ -35,7 +35,7 @@ def _download_sp500_list():
 def _load_symbols():
     _download_sp500_list()
     df_sp500 = pd.read_csv(SP500_LIST_PATH)
-    df_sp500.sort('Market Cap', ascending=False, inplace=True)
+    df_sp500.sort_values('Market Cap', ascending=False, inplace=True)
     stock_symbols = df_sp500['Symbol'].unique().tolist()
     print "Loaded %d stock symbols" % len(stock_symbols)
     return stock_symbols
